@@ -1,13 +1,16 @@
 # Resolution Scaling
+
 from ctypes import windll
 windll.shcore.SetProcessDpiAwareness(1)
 
 # Create Window
+
 window = tk.Tk()
 window.geometry("1280x600") 
 window.wm_title("Medical Image Processing") 
 
 # Create main frames
+
 frame_middle= tk.Frame(window, width = 640, height = 600 ) 
 frame_middle.grid(row=0 , column=1 )
 
@@ -18,18 +21,20 @@ frame_left = tk.Frame(window, width = 280, height = 600 )
 frame_left.grid(row=0, column=0)
 
 # Create label frames for main frames
-label_frame0 = tk.LabelFrame (frame_left, text="Filtreler", width= 270, height = 600 )
+
+label_frame0 = tk.LabelFrame (frame_left, text="Filters", width= 270, height = 600 )
 label_frame0.grid(row=0, column=0, padx=5) 
 
-label_frame1 = tk.LabelFrame(frame_middle, text = "Görüntü",  width = 630, height = 600)
+label_frame1 = tk.LabelFrame(frame_middle, text = "Images",  width = 630, height = 600)
 label_frame1.grid(row=0, column=0 , padx=5)
 
-label_frame2 = tk.LabelFrame(frame_right, text = "Görüntü Bilgisi",  width = 350, height = 600)
+label_frame2 = tk.LabelFrame(frame_right, text = "Images Info",  width = 350, height = 600)
 label_frame2.grid(row=0, column=0 , padx=5)
       
 "frame0"    
     
 # Filters 
+
 def negative():
     pass
 
@@ -66,7 +71,8 @@ def erosionFilter():
 def dilationFilter():
     pass
        
-# Filter butons
+# Create Filter butons
+
 aralik = 0.03
 
 buton_negative = tk.Button(label_frame0, text= "Negative" , command=negative, width= 13 )        
@@ -105,24 +111,29 @@ buton_erosion.place(relx = 0.55 , rely = aralik + 0.07*4)
 buton_dilation = tk.Button(label_frame0, text= "Dilation" , command=dilationFilter, width= 13  )        
 buton_dilation.place(relx = 0.55 , rely = aralik + 0.07*5)
 
-# Entry box for input 
-deger = tk.Entry(label_frame0, width =3 , bd =4)
-deger.place(relx = 0.3 , rely = 0.49)
+# Create Entry box for input 
+
+value = tk.Entry(label_frame0, width =3 , bd =4)
+value.place(relx = 0.3 , rely = 0.49)
 
 # Rotate
+
 def rotate_left():
     pass 
 
 def rotate_right():
     pass 
  
-# Rotate Buttons       
+# Create Rotate Buttons
+       
 tk.Label(label_frame0, text="Values:", font="Times 10").place(relx = 0.05 , rely = 0.49)
 buton_mean = tk.Button(label_frame0, text= "Left" , command=rotate_left, width= 5  ).place(relx = 0.58 , rely = 0.48)     
 buton_mean = tk.Button(label_frame0, text= "Right" , command=rotate_right, width= 5  ).place(relx = 0.78 , rely =0.48)     
-
+    
 "frame 2 " 
+
 # Show Metadata for DICOM Images
+
 scroll1 = tk.Scrollbar(label_frame2, orient = tk.VERTICAL)
 scroll1.pack(side=tk.RIGHT, fill=tk.Y)
 
@@ -135,4 +146,58 @@ listBox.pack(  fill = tk.BOTH )
 scroll1.config(command=listBox.yview)
 scroll2.config(command=listBox.xview)
 
-window.mainloop() 
+# read metadata file information
+def metadata(): 
+    pass
+
+" Menubar Options"
+
+# File menu options
+def openImage():
+    pass
+
+def imageReset ():
+    pass
+
+def close_window():
+    pass
+    
+def saveImage():
+    pass
+      
+#Creating Menubar and Buttons 
+
+menubar = tk.Menu (window)
+window.config(menu = menubar)
+file = tk.Menu(menubar, tearoff=0) # tearoff seçenekleri en üstten koymaya başlamamızı sağlar
+imageOperations= tk.Menu(menubar, tearoff=0)
+
+# Adding Parent Buttons to the Menubar
+
+menubar.add_cascade (label="File", menu = file) 
+menubar.add_cascade (label= "Image Tools", menu=imageOperations)
+
+" Creating submenus "
+
+# Creating submenus for file menu
+
+file.add_command (label = "Open", command = openImage)
+file.add_command (label = "Save", command = saveImage ) 
+
+file.add_command (label="Reset Image", command = imageReset)
+file.add_separator()  # menü seçenekleri arasına bir ayırıcı çizgi ekler
+file.add_command (label = "Exit", command = close_window ) 
+
+#  Creating submenus for imageOperations
+imageOperations.add_command (label = "Metadata Info", command = metadata) 
+imageOperations.add_command (label = "Expand Dataset", command = imagePreprocessing)
+imageOperations.add_command (label = "Filter Gallery", command = imageFileFilters) 
+
+#  creation of window-2
+
+def imagePreprocessing():
+    pass
+
+# creation of window-3
+def imageFileFilters():
+    pass
