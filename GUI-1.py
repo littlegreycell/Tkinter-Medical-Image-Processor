@@ -19,7 +19,7 @@ for i in range(3):
 frame_left = tk.Frame(window, width=280, height=600)
 frame_left.grid(row=0, column=0, sticky='nsew')
 
-frame_middle = tk.Frame(window, width=640, height=600)
+frame_middle = tk.Frame(window)
 frame_middle.grid(row=0, column=1, sticky='nsew')
 
 frame_right = tk.Frame(window, width=360, height=600)
@@ -148,21 +148,39 @@ buton_mean = tk.Button(label_frame0, text= "Right" , command=rotate_right, width
 "frame 2 " 
 
 # Show Metadata for DICOM Images
+def search_metadata():
+    pass
+
+def reset_search():
+    pass
+        
+def load_metadata():
+    pass
+
 scroll1 = tk.Scrollbar(label_frame2, orient = tk.VERTICAL)
 scroll1.pack(side=tk.RIGHT, fill=tk.Y)
 
 scroll2 = tk.Scrollbar(label_frame2, orient = tk.HORIZONTAL)
 scroll2.pack(side=tk.BOTTOM, fill=tk.X)
 
-listBox = tk.Listbox(label_frame2, width =40, height = 26, yscrollcommand =scroll1.set , xscrollcommand =scroll2.set)
-listBox.pack(  fill = tk.BOTH )
+listBox = tk.Listbox(label_frame2, width =40, height = 10, yscrollcommand =scroll1.set , xscrollcommand =scroll2.set)
+listBox.pack(fill=tk.BOTH, expand=True)
+scroll1.pack(side=tk.RIGHT, fill=tk.Y)
+scroll2.pack(side=tk.BOTTOM, fill=tk.X)
 
-scroll1.config(command=listBox.yview)
-scroll2.config(command=listBox.xview)
+label_frame2.grid_rowconfigure(0, weight=1)  # ListBox için yer ayır
+label_frame2.grid_columnconfigure(0, weight=1)
 
-# read metadata file information
-def metadata(): 
-    pass
+# Buttons for search
+search_var = tk.StringVar()
+search_entry = tk.Entry(label_frame2, textvariable=search_var, width=30)
+search_entry.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
+
+reset_button = tk.Button(label_frame2, text="Back", command=reset_search)
+reset_button.pack(side=tk.RIGHT, padx=10)
+
+search_button = tk.Button(label_frame2, text="Search", command=search_metadata)
+search_button.pack(side=tk.LEFT, padx=10)
 
 " Menubar Options"
 
